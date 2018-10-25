@@ -37,7 +37,7 @@ public class BudgetViewActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.budget_view_activity);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null)
@@ -47,10 +47,10 @@ public class BudgetViewActivity extends AppCompatActivity
 
         _db = new DBHelper(this);
 
-        _budgetNameEdit = (EditText) findViewById(R.id.budgetNameEdit);
-        _budgetNameView = (TextView) findViewById(R.id.budgetNameView);
-        _valueEdit = (EditText) findViewById(R.id.valueEdit);
-        _valueView = (TextView) findViewById(R.id.valueView);
+        _budgetNameEdit = findViewById(R.id.budgetNameEdit);
+        _budgetNameView = findViewById(R.id.budgetNameView);
+        _valueEdit = findViewById(R.id.valueEdit);
+        _valueView = findViewById(R.id.valueView);
 
         final Bundle b = getIntent().getExtras();
         _budgetName = b != null ? b.getString("id") : null;

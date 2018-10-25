@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         List<MainMenuItem> menuItems = new LinkedList<>();
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity
         menuItems.add(new MainMenuItem(R.drawable.transaction, R.string.transactionsTitle,
                 R.string.transactionsDescription));
 
-        final ListView buttonList = (ListView) findViewById(R.id.list);
+        final ListView buttonList = findViewById(R.id.list);
         final MenuAdapter buttonListAdapter = new MenuAdapter(this, menuItems);
         buttonList.setAdapter(buttonListAdapter);
         buttonList.setOnItemClickListener(new AdapterView.OnItemClickListener()
