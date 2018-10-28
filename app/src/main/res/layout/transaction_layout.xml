@@ -33,7 +33,7 @@
         <ImageView android:id="@+id/receiptIcon"
                    android:layout_width="@dimen/receipt_icon_size"
                    android:layout_height="@dimen/receipt_icon_size"
-                   android:padding="@dimen/receipt_icon_padding"
+                   android:contentDescription="TODO" android:padding="@dimen/receipt_icon_padding"
                    android:src="@drawable/purchase_order"
                    android:visibility="gone"/>
         <TextView android:id="@+id/budget"
