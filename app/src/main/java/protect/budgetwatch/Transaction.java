@@ -1,6 +1,7 @@
 package protect.budgetwatch;
 
 import android.database.Cursor;
+import android.util.Log;
 
 public class Transaction
 {
@@ -14,7 +15,7 @@ public class Transaction
     public final long dateMs;
     public final String receipt;
 
-    private Transaction(final int id, final int type, final String description, final String account,
+     Transaction(final int id, final int type, final String description, final String account,
                        final String budget, final double value, final String note, final long dateMs,
                        final String receipt)
     {

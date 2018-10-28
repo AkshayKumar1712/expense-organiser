@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.Log;
 
 class TransactionPagerAdapter extends FragmentStatePagerAdapter
 {
@@ -20,6 +21,7 @@ class TransactionPagerAdapter extends FragmentStatePagerAdapter
     @Override
     public Fragment getItem(int position)
     {
+//        Log.i("TransactionPagerAdapter", "Position = "+ position);
         Fragment fragment = new TransactionFragment();
         Bundle arguments = new Bundle();
         int transactionType = (position == 0) ?
@@ -31,6 +33,8 @@ class TransactionPagerAdapter extends FragmentStatePagerAdapter
         }
 
         fragment.setArguments(arguments);
+
+//        Log.i("TransactionPagerAdapter","type returned = "+ arguments.getInt("type"));
         return fragment;
     }
 

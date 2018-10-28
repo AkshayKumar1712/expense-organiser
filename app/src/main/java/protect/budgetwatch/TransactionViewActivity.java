@@ -92,6 +92,8 @@ public class TransactionViewActivity extends AppCompatActivity
 
     private void extractIntentFields(Intent intent)
     {
+//        Log.i("TransactionViewActivity", "Transaction ID = " + intent.getIntExtra("id", -1));
+//        Log.i("TransactionViewActivity", "Transaction SMS = " + intent.getStringExtra("sms"));
         final Bundle b = intent.getExtras();
         String action = intent.getAction();
         if(b != null)
@@ -100,6 +102,8 @@ public class TransactionViewActivity extends AppCompatActivity
             _type = b.getInt("type");
             _updateTransaction = b.getBoolean("update", false);
             _viewTransaction = b.getBoolean("view", false);
+            _nameEdit.setText(b.getString("name", ""));
+            _valueEdit.setText(b.getString("value", ""));
         }
         else if(action != null)
         {

@@ -27,6 +27,7 @@ public class TransactionFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
+//        Log.i("TransactionFragment", "TYPE = " +getArguments().getInt("type", -1));
         Bundle arguments = getArguments();
         if(arguments == null || arguments.getInt("type", -1) == -1)
         {
@@ -49,6 +50,7 @@ public class TransactionFragment extends Fragment
         final TextView helpText = (TextView) layout.findViewById(R.id.helpText);
 
         Cursor cursor = _db.getTransactions(_transactionType, budgetToDisplay, searchToUse, null, null);
+
 
         if(cursor.getCount() > 0)
         {
