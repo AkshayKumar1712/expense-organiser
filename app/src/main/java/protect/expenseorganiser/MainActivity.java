@@ -45,9 +45,9 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         List<MainMenuItem> menuItems = new LinkedList<>();
-        menuItems.add(new MainMenuItem(R.drawable.purse, R.string.budgetsTitle,
+        menuItems.add(new MainMenuItem(R.drawable.expense_book, R.string.budgetsTitle,
                 R.string.budgetDescription));
-        menuItems.add(new MainMenuItem(R.drawable.transaction, R.string.transactionsTitle,
+        menuItems.add(new MainMenuItem(R.drawable.transactions, R.string.transactionsTitle,
                 R.string.transactionsDescription));
 
         final ListView buttonList = findViewById(R.id.list);
