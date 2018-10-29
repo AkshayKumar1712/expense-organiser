@@ -4,13 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PatternMatcher;
 import android.provider.Telephony;
 import android.telephony.SmsMessage;
-import android.widget.Toast;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class SmsListener extends BroadcastReceiver {
 
@@ -26,28 +21,17 @@ public class SmsListener extends BroadcastReceiver {
         String value = "";
         String name = "";
 
-        Pattern pattern = Pattern.compile("([0-9.]+)");
-        Matcher matcher;
-
-        if (messageBody.contains("FNB :-)")) {
-            if (messageBody.contains("reserved")) {
-                matcher = pattern.matcher(messageBody.split("from")[0].trim());
-                while (matcher.find()) {
-                    value = matcher.group(0);
-                }
+        if (messageBody.contains("FNB")) {
+            if (messageBody.contains("reserved")||messageBody.contains("purchase")) {
                 name = messageBody.split("@")[1].split("from")[0].trim();
+                messageBody = messageBody.split("@")[0];
+                value = messageBody.split("R")[1].split(" ")[0];
             } else if (messageBody.contains("paid")) {
-                matcher = pattern.matcher(messageBody);
-                while (matcher.find()) {
-                    value = matcher.group(0);
-                }
-                name = messageBody.split("Ref")[1].split(".")[0].trim();
-            }else if (messageBody.contains("withdrawn")){
-                matcher = pattern.matcher(messageBody.split("from")[0].trim());
-                while (matcher.find()) {
-                    value = matcher.group(0);
-                }
-                name = "Withdrawal @ " + messageBody.split("@")[1].split("Avail")[0].trim();
+                name = messageBody.split("(Ref\\.)")[1].split("(\\. )")[0].trim();
+                value = messageBody.split("R")[1].split("paid")[0].trim();
+            } else if (messageBody.contains("withdrawn")) {
+                name = "Withdrawal @ " + messageBody.split("@")[1].split("\\.")[0].trim();
+                value = messageBody.split("R")[1].split("withdrawn")[0].trim();
             }
 
             Intent i = new Intent(context, TransactionViewActivity.class);
