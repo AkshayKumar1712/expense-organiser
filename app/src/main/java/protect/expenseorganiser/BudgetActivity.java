@@ -81,8 +81,8 @@ public class BudgetActivity extends AppCompatActivity
                 date.get(Calendar.MONTH));
 
         final Bundle b = getIntent().getExtras();
-        final long budgetStartMs = b != null ? b.getLong("budgetStart", dateMonthStartMs) : prefs.getLong("budgetStart",0);
-        final long budgetEndMs = b != null ? b.getLong("budgetEnd", dateMonthEndMs) : prefs.getLong("budgetEnd", 0);
+        final long budgetStartMs = b != null ? b.getLong("budgetStart", dateMonthStartMs) : prefs.getLong("budgetStart",dateMonthStartMs);
+        final long budgetEndMs = b != null ? b.getLong("budgetEnd", dateMonthEndMs) : prefs.getLong("budgetEnd", dateMonthEndMs);
 
         date.setTimeInMillis(budgetStartMs);
         String budgetStartString = DateFormat.getDateInstance(DateFormat.SHORT).format(date.getTime());
