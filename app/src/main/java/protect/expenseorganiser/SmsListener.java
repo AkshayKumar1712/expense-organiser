@@ -22,7 +22,7 @@ public class SmsListener extends BroadcastReceiver {
         String name = "";
 
         if (messageBody.contains("FNB")) {
-            if (messageBody.contains("reserved")||messageBody.contains("purchase")) {
+            if (messageBody.contains("reserved") || messageBody.contains("purchase")) {
                 name = messageBody.split("@")[1].split("from")[0].trim();
                 messageBody = messageBody.split("@")[0];
                 value = messageBody.split("R")[1].split(" ")[0];
@@ -34,15 +34,16 @@ public class SmsListener extends BroadcastReceiver {
                 value = messageBody.split("R")[1].split("withdrawn")[0].trim();
             }
 
-            if(!value.isEmpty() | !name.isEmpty()){
-                Intent i = new Intent(context, TransactionViewActivity.class);
-                final Bundle b = new Bundle();
-                b.putInt("type", 1);
-                b.putString("value", value);
-                b.putString("name", name);
-                i.putExtras(b);
-                context.startActivity(i);
-            }
+        }
+
+        if (!value.isEmpty() | !name.isEmpty()) {
+            Intent i = new Intent(context, TransactionViewActivity.class);
+            final Bundle b = new Bundle();
+            b.putInt("type", 1);
+            b.putString("value", value);
+            b.putString("name", name);
+            i.putExtras(b);
+            context.startActivity(i);
         }
     }
 }
