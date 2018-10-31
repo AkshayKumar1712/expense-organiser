@@ -1,7 +1,6 @@
 package protect.expenseorganiser;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -182,18 +181,13 @@ public class BudgetViewActivity extends AppCompatActivity
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(R.string.deleteBudgetTitle);
             builder.setMessage(R.string.deleteBudgetConfirmation);
-            builder.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener()
-            {
-                @Override
-                public void onClick(DialogInterface dialog, int which)
-                {
-                    Log.e(TAG, "Deleting budget: " + budgetName);
+            builder.setPositiveButton(R.string.confirm, (dialog, which) -> {
+                Log.e(TAG, "Deleting budget: " + budgetName);
 
-                    _db.deleteBudget(budgetName);
+                _db.deleteBudget(budgetName);
 
-                    finish();
-                    dialog.dismiss();
-                }
+                finish();
+                dialog.dismiss();
             });
             builder.setNegativeButton(R.string.cancel, (dialog, which) -> dialog.dismiss());
             AlertDialog dialog = builder.create();

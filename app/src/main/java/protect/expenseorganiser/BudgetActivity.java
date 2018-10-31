@@ -2,8 +2,8 @@ package protect.expenseorganiser;
 
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -55,6 +55,9 @@ public class BudgetActivity extends AppCompatActivity
         final ListView budgetList = findViewById(R.id.list);
         final TextView helpText = findViewById(R.id.helpText);
 
+        SharedPreferences prefs = getSharedPreferences("protect.daterange", MODE_PRIVATE);
+
+
         if(_db.getBudgetCount() > 0)
         {
             budgetList.setVisibility(View.VISIBLE);
@@ -78,8 +81,8 @@ public class BudgetActivity extends AppCompatActivity
                 date.get(Calendar.MONTH));
 
         final Bundle b = getIntent().getExtras();
-        final long budgetStartMs = b != null ? b.getLong("budgetStart", dateMonthStartMs) : dateMonthStartMs;
-        final long budgetEndMs = b != null ? b.getLong("budgetEnd", dateMonthEndMs) : dateMonthEndMs;
+        final long budgetStartMs = b != null ? b.getLong("budgetStart", dateMonthStartMs) : prefs.getLong("budgetStart",0);
+        final long budgetEndMs = b != null ? b.getLong("budgetEnd", dateMonthEndMs) : prefs.getLong("budgetEnd", 0);
 
         date.setTimeInMillis(budgetStartMs);
         String budgetStartString = DateFormat.getDateInstance(DateFormat.SHORT).format(date.getTime());
@@ -99,24 +102,19 @@ public class BudgetActivity extends AppCompatActivity
 
         registerForContextMenu(budgetList);
 
-        budgetList.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+        budgetList.setOnItemClickListener((parent, view, position, id) -> {
+            Budget budget = (Budget)parent.getItemAtPosition(position);
+            if(budget == null)
             {
-                Budget budget = (Budget)parent.getItemAtPosition(position);
-                if(budget == null)
-                {
-                    Log.w(TAG, "Clicked budget at position " + position + " is null");
-                    return;
-                }
-
-                Intent i = new Intent(getApplicationContext(), TransactionActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("budget", budget.name);
-                i.putExtras(bundle);
-                startActivity(i);
+                Log.w(TAG, "Clicked budget at position " + position + " is null");
+                return;
             }
+
+            Intent i = new Intent(getApplicationContext(), TransactionActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("budget", budget.name);
+            i.putExtras(bundle);
+            startActivity(i);
         });
 
         Budget blankBudget = _db.getBlankBudget(budgetStartMs, budgetEndMs);
@@ -215,45 +213,37 @@ public class BudgetActivity extends AppCompatActivity
             final View view = getLayoutInflater().inflate(R.layout.budget_date_picker_layout, null, false);
 
             builder.setView(view);
-            builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener()
-            {
-                @Override
-                public void onClick(DialogInterface dialog, int which)
+            builder.setNegativeButton(R.string.cancel, (dialog, which) -> dialog.cancel());
+            builder.setPositiveButton(R.string.set, (dialog, which) -> {
+                DatePicker startDatePicker = view.findViewById(R.id.startDate);
+                DatePicker endDatePicker = view.findViewById(R.id.endDate);
+
+                long startOfBudgetMs = CalendarUtil.getStartOfDayMs(startDatePicker.getYear(),
+                        startDatePicker.getMonth(), startDatePicker.getDayOfMonth());
+                long endOfBudgetMs = CalendarUtil.getEndOfDayMs(endDatePicker.getYear(),
+                        endDatePicker.getMonth(), endDatePicker.getDayOfMonth());
+
+                if (startOfBudgetMs > endOfBudgetMs)
                 {
-                    dialog.cancel();
+                    Toast.makeText(BudgetActivity.this, R.string.startDateAfterEndDate, Toast.LENGTH_LONG).show();
+                    return;
                 }
-            });
-            builder.setPositiveButton(R.string.set, new DialogInterface.OnClickListener()
-            {
-                @Override
-                public void onClick(DialogInterface dialog, int which)
-                {
-                    DatePicker startDatePicker = view.findViewById(R.id.startDate);
-                    DatePicker endDatePicker = view.findViewById(R.id.endDate);
 
-                    long startOfBudgetMs = CalendarUtil.getStartOfDayMs(startDatePicker.getYear(),
-                            startDatePicker.getMonth(), startDatePicker.getDayOfMonth());
-                    long endOfBudgetMs = CalendarUtil.getEndOfDayMs(endDatePicker.getYear(),
-                            endDatePicker.getMonth(), endDatePicker.getDayOfMonth());
+                SharedPreferences prefs = getSharedPreferences("protect.daterange", MODE_PRIVATE);
+                prefs.edit().putLong("budgetStart", startOfBudgetMs).commit();
+                prefs.edit().putLong("budgetEnd", endOfBudgetMs).commit();
 
-                    if (startOfBudgetMs > endOfBudgetMs)
-                    {
-                        Toast.makeText(BudgetActivity.this, R.string.startDateAfterEndDate, Toast.LENGTH_LONG).show();
-                        return;
-                    }
+                Intent intent = new Intent(BudgetActivity.this, BudgetActivity.class);
+                intent.setFlags(
+                        Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_TASK_ON_HOME);
 
-                    Intent intent = new Intent(BudgetActivity.this, BudgetActivity.class);
-                    intent.setFlags(
-                            Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_TASK_ON_HOME);
+                Bundle bundle = new Bundle();
+                bundle.putLong("budgetStart", startOfBudgetMs);
+                bundle.putLong("budgetEnd", endOfBudgetMs);
+                intent.putExtras(bundle);
+                startActivity(intent);
 
-                    Bundle bundle = new Bundle();
-                    bundle.putLong("budgetStart", startOfBudgetMs);
-                    bundle.putLong("budgetEnd", endOfBudgetMs);
-                    intent.putExtras(bundle);
-                    startActivity(intent);
-
-                    BudgetActivity.this.finish();
-                }
+                BudgetActivity.this.finish();
             });
 
             builder.show();

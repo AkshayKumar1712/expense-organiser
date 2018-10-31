@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -274,20 +273,20 @@ class DBHelper extends SQLiteOpenHelper
         // Determine over how many months the budgets represent.
         // Adjust the budget max to match the number of months
         // represented.
-        Calendar date = Calendar.getInstance();
-        date.setTimeInMillis(startDateMs);
-        final int MONTHS_PER_YEAR = 12;
-        int startMonths = date.get(Calendar.YEAR) * MONTHS_PER_YEAR + date.get(Calendar.MONTH);
-        date.setTimeInMillis(endDateMs);
-        int endMonths = date.get(Calendar.YEAR) * MONTHS_PER_YEAR + date.get(Calendar.MONTH);
-        int totalMonthsInRange = endMonths - startMonths + 1;
+//        Calendar date = Calendar.getInstance();
+//        date.setTimeInMillis(startDateMs);
+//        final int MONTHS_PER_YEAR = 12;
+//        int startMonths = date.get(Calendar.YEAR) * MONTHS_PER_YEAR + date.get(Calendar.MONTH);
+//        date.setTimeInMillis(endDateMs);
+//        int endMonths = date.get(Calendar.YEAR) * MONTHS_PER_YEAR + date.get(Calendar.MONTH);
+//        int totalMonthsInRange = endMonths - startMonths + 1;
 
         if(data.moveToFirst())
         {
             do
             {
                 String name = data.getString(data.getColumnIndexOrThrow(BudgetDbIds.NAME));
-                int max = data.getInt(data.getColumnIndexOrThrow(BudgetDbIds.MAX)) * totalMonthsInRange;
+                int max = data.getInt(data.getColumnIndexOrThrow(BudgetDbIds.MAX));
                 double expenses = data.getDouble(data.getColumnIndexOrThrow(TOTAL_EXPENSE_COL));
                 double revenues = data.getDouble(data.getColumnIndexOrThrow(TOTAL_REVENUE_COL));
                 double current = expenses - revenues;

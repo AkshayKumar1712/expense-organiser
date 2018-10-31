@@ -1,7 +1,6 @@
 package protect.expenseorganiser;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -17,7 +16,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -67,6 +65,7 @@ public class MainActivity extends AppCompatActivity
             {
                 case R.string.budgetsTitle:
                     goalClass = BudgetActivity.class;
+
                     break;
                 case R.string.transactionsTitle:
                     goalClass = TransactionActivity.class;
