@@ -26,7 +26,7 @@ public class SmsListener extends BroadcastReceiver {
                 name = messageBody.split("@")[1].split("from")[0].trim();
                 messageBody = messageBody.split("@")[0];
                 value = messageBody.split("R")[1].split(" ")[0];
-            } else if (messageBody.contains("paid")) {
+            } else if (messageBody.contains("paid from")) {
                 name = messageBody.split("(Ref\\.)")[1].split("(\\. )")[0].trim();
                 value = messageBody.split("R")[1].split("paid")[0].trim();
             } else if (messageBody.contains("withdrawn")) {
@@ -34,13 +34,15 @@ public class SmsListener extends BroadcastReceiver {
                 value = messageBody.split("R")[1].split("withdrawn")[0].trim();
             }
 
-            Intent i = new Intent(context, TransactionViewActivity.class);
-            final Bundle b = new Bundle();
-            b.putInt("type", 1);
-            b.putString("value", value);
-            b.putString("name", name);
-            i.putExtras(b);
-            context.startActivity(i);
+            if(!value.isEmpty() | !name.isEmpty()){
+                Intent i = new Intent(context, TransactionViewActivity.class);
+                final Bundle b = new Bundle();
+                b.putInt("type", 1);
+                b.putString("value", value);
+                b.putString("name", name);
+                i.putExtras(b);
+                context.startActivity(i);
+            }
         }
     }
 }
