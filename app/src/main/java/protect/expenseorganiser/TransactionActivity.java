@@ -3,7 +3,6 @@ package protect.expenseorganiser;
 import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
@@ -12,8 +11,8 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,6 +25,8 @@ public class TransactionActivity extends AppCompatActivity
     private static final String TAG = "BudgetWatch";
 
     private boolean _currentlySearching = false;
+
+    private String parentBudget;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -138,9 +139,11 @@ public class TransactionActivity extends AppCompatActivity
 
         if (id == R.id.action_add)
         {
+            parentBudget = getIntent().getStringExtra("budget");
             Intent i = new Intent(getApplicationContext(), TransactionViewActivity.class);
             final Bundle b = new Bundle();
             b.putInt("type", getCurrentTabType());
+            b.putString("parentBudget", parentBudget);
             i.putExtras(b);
             startActivity(i);
             return true;

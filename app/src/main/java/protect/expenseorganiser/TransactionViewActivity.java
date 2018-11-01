@@ -87,7 +87,7 @@ public class TransactionViewActivity extends AppCompatActivity
     private int _type;
     private boolean _updateTransaction;
     private boolean _viewTransaction;
-
+    private String parentBudget;
     private void extractIntentFields(Intent intent)
     {
 
@@ -101,6 +101,7 @@ public class TransactionViewActivity extends AppCompatActivity
             _viewTransaction = b.getBoolean("view", false);
             _nameEdit.setText(b.getString("name", ""));
             _valueEdit.setText(b.getString("value", ""));
+            parentBudget = b.getString("parentBudget");
         }
         else if(action != null)
         {
@@ -166,6 +167,12 @@ public class TransactionViewActivity extends AppCompatActivity
         _budgetSpinner = findViewById(R.id.budgetSpinner);
 
         extractIntentFields(getIntent());
+
+        //needed to initialise the spinner in order to set the budget name received from intent
+        List<String> budgetNames = _db.getBudgetNames();
+        ArrayAdapter<String> budgets = new ArrayAdapter<>(this, R.layout.spinner_textview, budgetNames);
+        _budgetSpinner.setAdapter(budgets);
+        _budgetSpinner.setSelection(budgets.getPosition(parentBudget));
     }
 
     @Override
@@ -247,6 +254,7 @@ public class TransactionViewActivity extends AppCompatActivity
         {
             ArrayAdapter<String> budgets = new ArrayAdapter<>(this, R.layout.spinner_textview, budgetNames);
             _budgetSpinner.setAdapter(budgets);
+            _budgetSpinner.setSelection(budgets.getPosition(parentBudget));
         }
 
         if(_updateTransaction || _viewTransaction)
