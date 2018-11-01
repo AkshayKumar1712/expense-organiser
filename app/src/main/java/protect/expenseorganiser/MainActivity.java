@@ -1,11 +1,14 @@
 package protect.expenseorganiser;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -20,6 +23,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.common.collect.ImmutableMap;
 
@@ -33,6 +37,7 @@ import protect.expenseorganiser.intro.IntroActivity;
 public class MainActivity extends AppCompatActivity
 {
     private final static String TAG = "BudgetWatch";
+    private static final Integer SMS_REQUEST_CODE = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -86,6 +91,26 @@ public class MainActivity extends AppCompatActivity
         if (prefs.getBoolean("firstrun", true)) {
             startIntro();
             prefs.edit().putBoolean("firstrun", false).commit();
+        }
+
+        //request user permissions to receive and read SMS
+        if (ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.RECEIVE_SMS}, SMS_REQUEST_CODE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == SMS_REQUEST_CODE & grantResults.length > 0) {
+            for (int i = 0; i < grantResults.length; i++) {
+                if (grantResults[i] == -1) {
+                    Toast.makeText(this, "Without SMS permissions, transactions will have to be created manually!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Go to: \n Settings -> Apps -> " + getString(R.string.app_name) + "Permissions" +
+                            "to grant SMS permissions", Toast.LENGTH_LONG).show();
+                }
+            }
         }
     }
 

@@ -53,7 +53,8 @@
             android:configChanges="orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBar"
             android:launchMode="singleTop"
-            android:exported="true"/>
+            android:exported="true"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="protect.expenseorganiser.ImportExportActivity"
             android:label="@string/importExportTitle"
