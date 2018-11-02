@@ -144,6 +144,7 @@ public class TransactionActivity extends AppCompatActivity
             final Bundle b = new Bundle();
             b.putInt("type", getCurrentTabType());
             b.putString("parentBudget", parentBudget);
+            b.putBoolean("add", true);
             i.putExtras(b);
             startActivity(i);
             return true;

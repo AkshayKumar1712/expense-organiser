@@ -87,10 +87,11 @@ public class TransactionViewActivity extends AppCompatActivity
     private int _type;
     private boolean _updateTransaction;
     private boolean _viewTransaction;
+    private boolean _addTransaction;
     private String parentBudget;
+
     private void extractIntentFields(Intent intent)
     {
-
         final Bundle b = intent.getExtras();
         String action = intent.getAction();
         if(b != null)
@@ -99,6 +100,7 @@ public class TransactionViewActivity extends AppCompatActivity
             _type = b.getInt("type");
             _updateTransaction = b.getBoolean("update", false);
             _viewTransaction = b.getBoolean("view", false);
+            _addTransaction = b.getBoolean("add", false);
             _nameEdit.setText(b.getString("name", ""));
             _valueEdit.setText(b.getString("value", ""));
             parentBudget = b.getString("parentBudget");
@@ -167,12 +169,6 @@ public class TransactionViewActivity extends AppCompatActivity
         _budgetSpinner = findViewById(R.id.budgetSpinner);
 
         extractIntentFields(getIntent());
-
-        //needed to initialise the spinner in order to set the budget name received from intent
-        List<String> budgetNames = _db.getBudgetNames();
-        ArrayAdapter<String> budgets = new ArrayAdapter<>(this, R.layout.spinner_textview, budgetNames);
-        _budgetSpinner.setAdapter(budgets);
-        _budgetSpinner.setSelection(budgets.getPosition(parentBudget));
     }
 
     @Override
@@ -254,7 +250,10 @@ public class TransactionViewActivity extends AppCompatActivity
         {
             ArrayAdapter<String> budgets = new ArrayAdapter<>(this, R.layout.spinner_textview, budgetNames);
             _budgetSpinner.setAdapter(budgets);
-            _budgetSpinner.setSelection(budgets.getPosition(parentBudget));
+
+            if (_addTransaction) {
+                _budgetSpinner.setSelection(budgets.getPosition(parentBudget));
+            }
         }
 
         if(_updateTransaction || _viewTransaction)
@@ -291,7 +290,7 @@ public class TransactionViewActivity extends AppCompatActivity
 
                 // If viewing a transaction, only display the receipt
                 // field if a receipt is captured
-                if(transaction.receipt.isEmpty() == false)
+                if (!transaction.receipt.isEmpty())
                 {
                     _receiptLayout.setVisibility(View.VISIBLE);
                     _endingDivider.setVisibility(View.VISIBLE);

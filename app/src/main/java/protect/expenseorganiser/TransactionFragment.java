@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -41,8 +40,8 @@ public class TransactionFragment extends Fragment
         final String searchToUse = arguments.getString("search", null);
 
         View layout = inflater.inflate(R.layout.list_layout, container, false);
-        ListView listView = (ListView) layout.findViewById(R.id.list);
-        final TextView helpText = (TextView) layout.findViewById(R.id.helpText);
+        ListView listView = layout.findViewById(R.id.list);
+        final TextView helpText = layout.findViewById(R.id.helpText);
 
         Cursor cursor = _db.getTransactions(_transactionType, budgetToDisplay, searchToUse, null, null);
 

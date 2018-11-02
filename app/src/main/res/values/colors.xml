@@ -9,4 +9,9 @@
     <color name="inputContrastBackground">#F8F8F8</color>
     <color name="inputBackground">#FFFFFF</color>
     <color name="inputBorder">#DDDDDD</color>
+
+    <color name="theme_color_primary">#fb7299</color>
+    <color name="theme_color_primary_dark">#b85671</color>
+    <color name="theme_color_primary_trans">#99f0486c</color>
+
 </resources>
