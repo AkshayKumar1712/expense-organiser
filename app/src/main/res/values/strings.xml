@@ -151,7 +151,7 @@
     <string name="addRevenueDisabled">Adding a revenue is disabled</string>
 
     <string name="startIntro">Start Intro</string>
-    <string name="intro1Title">Welcome to Budget Watch\n</string>
+    <string name="intro1Title">Welcome to Expense Book\n</string>
     <string name="intro1Description">Manage your budget by tracking you spending.</string>
     <string name="intro2Title">Budgets\n</string>
     <string name="intro2Description">You may create as many budgets as you would like to track, each with their own max monthly spending.\n\nTo create a budget, touch Budgets from the main screen, then click the plus in the menu.</string>
@@ -162,9 +162,9 @@
     <string name="intro5Title">Budget Window\n</string>
     <string name="intro5Description">By default the budgets show the current month\'s spending. To change the time window, touch the calendar icon in the menu.</string>
     <string name="intro6Title">Export and Import\n</string>
-    <string name="intro6Description">Budget and transactions can be backed-up. To export or import data touch the Import/Export icon in the menu on the main page.</string>
+    <string name="intro6Description">Budget and transactions can be backed-up. To export or import data touch the Import/Export (arrows) icon in the menu on the main page.</string>
     <string name="intro7Title">Feedback\n</string>
-    <string name="intro7Description">This app is free, ad-free, and open source. See details by touching About in the menu on the main page.\n\nPlease leave feedback in the app store! (:</string>
+    <string name="intro7Description">This app is free, ad-free, and open source. See details by touching About in the menu on the main page.\n </string>
 
     <string name="exportProgressFormat">Exported <xliff:g id="completed">%d</xliff:g> of <xliff:g id="total">%d</xliff:g> entries</string>
     <string name="importProgressFormat">Imported <xliff:g id="completed">%d</xliff:g> entries</string>

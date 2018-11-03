@@ -32,7 +32,7 @@
             android:layout_gravity="center"
             android:contentDescription="TODO" android:paddingLeft="16dp"
             android:paddingRight="16dp"
-            android:src="@drawable/app_icon_intro"/>
+            android:src="@drawable/expense_book" />
     </LinearLayout>
     <TextView
         android:layout_width="wrap_content"
