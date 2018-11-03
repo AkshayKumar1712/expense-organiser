@@ -169,16 +169,41 @@ public class BudgetActivity extends AppCompatActivity
         {
             Budget budget = (Budget) listView.getItemAtPosition(info.position);
 
-            if (budget != null && item.getItemId() == R.id.action_edit)
-            {
-                Intent i = new Intent(getApplicationContext(), BudgetViewActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("id", budget.name);
-                bundle.putBoolean("view", true);
-                i.putExtras(bundle);
-                startActivity(i);
+            if (budget != null) {
 
-                return true;
+                switch (item.getItemId()) {
+                    case R.id.action_edit: {
+                        Intent i = new Intent(getApplicationContext(), BudgetViewActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("id", budget.name);
+                        bundle.putBoolean("update", true);
+                        i.putExtras(bundle);
+                        startActivity(i);
+
+                        return true;
+                    }
+                    case R.id.action_delete: {
+                        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
+                        builder.setTitle(R.string.deleteBudgetTitle);
+                        builder.setMessage(R.string.deleteBudgetConfirmation);
+                        builder.setPositiveButton(R.string.confirm, (dialog, which) -> {
+                            Log.e(TAG, "Deleting budget: " + budget.name);
+
+                            _db.deleteBudget(budget.name);
+
+                            finish();
+                            dialog.dismiss();
+                        });
+                        builder.setNegativeButton(R.string.cancel, (dialog, which) -> dialog.dismiss());
+                        android.support.v7.app.AlertDialog dialog = builder.create();
+                        dialog.show();
+
+                        return true;
+                    }
+                    default:
+                        return super.onContextItemSelected(item);
+                }
+
             }
         }
 

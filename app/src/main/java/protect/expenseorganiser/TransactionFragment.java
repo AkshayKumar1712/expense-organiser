@@ -105,7 +105,7 @@ public class TransactionFragment extends Fragment
             final Bundle b1 = new Bundle();
             b1.putInt("id", transaction.id);
             b1.putInt("type", _transactionType);
-            b1.putBoolean("view", true);
+            b1.putBoolean("update", true);
             i.putExtras(b1);
             startActivity(i);
         });
