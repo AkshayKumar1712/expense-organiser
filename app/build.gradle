@@ -15,6 +15,7 @@ android {
     }
     defaultConfig {
         applicationId "protect.expenseorganiser"
+
         minSdkVersion 19
         targetSdkVersion 27
         versionCode 27
@@ -31,14 +32,14 @@ android {
         }
     }
 
-   lintOptions {
-      disable "GoogleAppIndexingWarning"
-      disable "ButtonStyle"
-      disable "IconDipSize"
-      disable "AlwaysShowAction"
-      disable "InflateParams"
-      disable "MissingTranslation"
-   }
+    lintOptions {
+        disable "GoogleAppIndexingWarning"
+        disable "ButtonStyle"
+        disable "IconDipSize"
+        disable "AlwaysShowAction"
+        disable "InflateParams"
+        disable "MissingTranslation"
+    }
 
     // Starting with Android Studio 3 Robolectric is unable to find resources.
     // The following allows it to find the resources.
