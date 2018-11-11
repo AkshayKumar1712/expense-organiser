@@ -4,6 +4,7 @@ package protect.expenseorganiser;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -146,6 +147,14 @@ public class BudgetActivity extends AppCompatActivity
 
         String fraction = String.format(getResources().getString(R.string.fraction), current, max);
         budgetValue.setText(fraction);
+
+        if (current > max) {
+            budgetValue.setBackgroundColor(Color.RED);
+        } else if (current < max) {
+            budgetValue.setBackgroundColor(Color.GREEN);
+        } else {
+            budgetValue.setBackgroundColor(Color.YELLOW);
+        }
     }
 
     @Override

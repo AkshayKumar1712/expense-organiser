@@ -1,6 +1,7 @@
 package protect.expenseorganiser;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,6 +63,14 @@ class BudgetAdapter extends ArrayAdapter<Budget>
         String fraction = String.format(FRACTION_FORMAT, item.current, item.max);
 
         holder.budgetValue.setText(fraction);
+
+        if (item.current > item.max) {
+            holder.budgetValue.setBackgroundColor(Color.RED);
+        } else if (item.current < item.max) {
+            holder.budgetValue.setBackgroundColor(Color.GREEN);
+        } else {
+            holder.budgetValue.setBackgroundColor(Color.YELLOW);
+        }
 
         return convertView;
     }
