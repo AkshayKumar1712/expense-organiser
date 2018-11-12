@@ -49,7 +49,7 @@ not delete such emails.
 
 This Application is not used to knowingly solicit data from or market to children under the age of 13. If a parent or
 guardian becomes aware that his or her child has provided us with information without their consent, he or she should
-contact us at protect.github@gmail.com. We will delete such information from our files within a reasonable time.
+contact us at halif.github@gmail.com. We will delete such information from our files within a reasonable time.
 
 # Security
 
@@ -67,4 +67,4 @@ checking this history of this file in GitHub.
 
 # Contact us
 If you have any questions regarding privacy while using the Application, or have questions about our practices,
-please contact us via email at protect.github@gmail.com.
+please contact us via email at halif.github@gmail.com.

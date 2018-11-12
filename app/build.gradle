@@ -14,7 +14,7 @@ android {
         targetCompatibility 1.8
     }
     defaultConfig {
-        applicationId "protect.expenseorganiser"
+        applicationId "halif.expenseorganiser"
 
         minSdkVersion 19
         targetSdkVersion 27

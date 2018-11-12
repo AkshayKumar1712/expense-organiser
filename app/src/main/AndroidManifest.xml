@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="protect.expenseorganiser">
+    package="halif.expenseorganiser">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA"/>
@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="protect.expenseorganiser.MainActivity"
+            android:name="halif.expenseorganiser.MainActivity"
             android:label="@string/app_name"
             android:configChanges="orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBar">
@@ -28,15 +28,15 @@
                        android:resource="@xml/shortcuts" />
         </activity>
         <activity
-            android:name="protect.expenseorganiser.BudgetActivity"
+            android:name="halif.expenseorganiser.BudgetActivity"
             android:label="@string/budgetsTitle"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name="protect.expenseorganiser.BudgetViewActivity"
+            android:name="halif.expenseorganiser.BudgetViewActivity"
             android:configChanges="orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name="protect.expenseorganiser.TransactionActivity"
+            android:name="halif.expenseorganiser.TransactionActivity"
             android:label="@string/transactionsTitle"
             android:theme="@style/AppTheme.NoActionBar"
             android:launchMode="singleTop">
@@ -49,30 +49,30 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity
-            android:name="protect.expenseorganiser.TransactionViewActivity"
+            android:name="halif.expenseorganiser.TransactionViewActivity"
             android:configChanges="orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBar"
             android:launchMode="singleTop"
             android:exported="true"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name="protect.expenseorganiser.ImportExportActivity"
+            android:name="halif.expenseorganiser.ImportExportActivity"
             android:label="@string/importExportTitle"
             android:configChanges="orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name="protect.expenseorganiser.ReceiptViewActivity"
+            android:name="halif.expenseorganiser.ReceiptViewActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name="protect.expenseorganiser.SettingsActivity"
+            android:name="halif.expenseorganiser.SettingsActivity"
             android:label="@string/settings"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name="protect.expenseorganiser.intro.IntroActivity"
+            android:name="halif.expenseorganiser.intro.IntroActivity"
             android:label=""
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name="protect.expenseorganiser.ShortcutConfigure"
+            android:name="halif.expenseorganiser.ShortcutConfigure"
             android:label="@string/addShortcutsTitle"
             android:configChanges="orientation|screenSize">
             <intent-filter>
@@ -80,13 +80,18 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
-        <receiver android:label="@string/app_name" android:name="protect.expenseorganiser.TransactionExpenseWidget">
+
+        <receiver
+            android:name="halif.expenseorganiser.TransactionExpenseWidget"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
             </intent-filter>
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_provider"/>
         </receiver>
-        <receiver android:name="protect.expenseorganiser.SmsListener" android:permission="android.permission.BROADCAST_SMS">
+        <receiver
+            android:name="halif.expenseorganiser.SmsListener"
+            android:permission="android.permission.BROADCAST_SMS">
             <intent-filter android:priority="100">
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
